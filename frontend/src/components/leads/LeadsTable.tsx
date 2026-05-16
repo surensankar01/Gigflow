@@ -14,12 +14,12 @@ interface LeadsTableProps {
 }
 
 const AVATAR_COLORS = [
-  { bg: 'rgba(34,197,94,0.15)',  border: 'rgba(34,197,94,0.3)',  text: '#4ade80' },
+  { bg: 'rgba(34,197,94,0.15)', border: 'rgba(34,197,94,0.3)', text: '#4ade80' },
   { bg: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.3)', text: '#60a5fa' },
   { bg: 'rgba(168,85,247,0.15)', border: 'rgba(168,85,247,0.3)', text: '#c084fc' },
   { bg: 'rgba(245,158,11,0.15)', border: 'rgba(245,158,11,0.3)', text: '#fbbf24' },
-  { bg: 'rgba(239,68,68,0.15)',  border: 'rgba(239,68,68,0.3)',  text: '#f87171' },
-  { bg: 'rgba(244,114,182,0.15)',border: 'rgba(244,114,182,0.3)',text: '#f472b6' },
+  { bg: 'rgba(239,68,68,0.15)', border: 'rgba(239,68,68,0.3)', text: '#f87171' },
+  { bg: 'rgba(244,114,182,0.15)', border: 'rgba(244,114,182,0.3)', text: '#f472b6' },
 ];
 
 function getAvatarColor(name: string) {
@@ -57,7 +57,7 @@ export default function LeadsTable({ leads, isLoading, onEdit, onView, onDelete 
           </tr>
         </thead>
         <tbody>
-          {leads.map((lead, idx) => {
+          {leads.map((lead) => {
             const avatar = getAvatarColor(lead.name);
             return (
               <tr key={lead._id}

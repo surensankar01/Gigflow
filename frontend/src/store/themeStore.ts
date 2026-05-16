@@ -18,7 +18,7 @@ export const useThemeStore = create<ThemeState>((set) => ({
     }
     return { isDark: newDark };
   }),
-  initTheme: () => set((state) => {
+  initTheme: () => set(() => {
     const isDark = localStorage.getItem('theme') !== 'light';
     if (isDark) {
       document.documentElement.classList.add('dark');

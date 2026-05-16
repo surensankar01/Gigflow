@@ -21,7 +21,7 @@ export default function LoginPage() {
     }
     setIsLoading(true);
     try {
-      const response = await authService.login(email, password);
+      const response = await authService.login({ email, password });
       if (response.success && response.data) {
         setAuth(response.data.user, response.data.token);
         toast.success('Welcome back!');
