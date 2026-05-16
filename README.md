@@ -56,7 +56,122 @@ A full-stack Lead Management Dashboard built with the **MERN stack + TypeScript*
 - Includes: Name, Email, Status, Source, Notes, Created At
 
 ---
+## Setup Instructions
 
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/surensankar01/Gigflow.git
+cd Gigflow
+```
+
+---
+
+### 2. Backend Setup
+
+Navigate to backend folder:
+
+```bash
+cd backend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create `.env` file and add:
+
+```env
+PORT=5000
+NODE_ENV=development
+
+MONGODB_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=7d
+
+FRONTEND_URL=http://localhost:5173
+```
+
+Run backend server:
+
+```bash
+npm run dev
+```
+
+Backend runs on:
+
+```text
+http://localhost:5000
+```
+
+---
+
+### 3. Frontend Setup
+
+Open another terminal and navigate to frontend:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create `.env` file and add:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Run frontend:
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+### 4. Build for Production
+
+Frontend:
+
+```bash
+npm run build
+```
+
+Backend:
+
+```bash
+npm run build
+```
+
+---
+
+### 5. Deployment
+
+Frontend deployed using:
+
+- Vercel
+
+Backend deployed using:
+
+- Railway
+
+Database:
+
+- MongoDB Atlas
 ## Project Structure
 
 ```
@@ -96,7 +211,303 @@ gigflow/
 ```
 
 ---
+# API Documentation – GigFlow
 
+Base URL:
+
+```text
+Production:
+https://gigflow-production-2d1e.up.railway.app/api
+
+Local:
+http://localhost:5000/api
+```
+
+---
+
+# Authentication APIs
+
+## Register User
+
+Endpoint:
+
+```http
+POST /auth/register
+```
+
+Request Body:
+
+```json
+{
+  "name": "Suren",
+  "email": "suren@test.com",
+  "password": "Password123",
+  "role": "admin"
+}
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "message": "User registered successfully",
+  "token": "jwt_token"
+}
+```
+
+---
+
+## Login User
+
+Endpoint:
+
+```http
+POST /auth/login
+```
+
+Request Body:
+
+```json
+{
+  "email": "suren@test.com",
+  "password": "Password123"
+}
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "token": "jwt_token"
+}
+```
+
+---
+
+## Get Current User
+
+Endpoint:
+
+```http
+GET /auth/me
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "12345",
+    "name": "Suren",
+    "email": "suren@test.com",
+    "role": "admin"
+  }
+}
+```
+
+---
+
+# Lead APIs
+
+## Get All Leads
+
+Endpoint:
+
+```http
+GET /leads
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Query Parameters:
+
+```text
+?page=1
+&limit=10
+&search=Rahul
+&status=Qualified
+&source=Instagram
+&sort=latest
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "data": [],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 50
+  }
+}
+```
+
+---
+
+## Create Lead
+
+Endpoint:
+
+```http
+POST /leads
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Request Body:
+
+```json
+{
+  "name": "Rahul Sharma",
+  "email": "rahul@gmail.com",
+  "status": "Qualified",
+  "source": "Instagram"
+}
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "message": "Lead created successfully"
+}
+```
+
+---
+
+## Get Single Lead
+
+Endpoint:
+
+```http
+GET /leads/:id
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "12345",
+    "name": "Rahul Sharma",
+    "email": "rahul@gmail.com"
+  }
+}
+```
+
+---
+
+## Update Lead
+
+Endpoint:
+
+```http
+PUT /leads/:id
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Request Body:
+
+```json
+{
+  "status": "Contacted"
+}
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "message": "Lead updated successfully"
+}
+```
+
+---
+
+## Delete Lead
+
+Endpoint:
+
+```http
+DELETE /leads/:id
+```
+
+Headers:
+
+```text
+Authorization: Bearer <jwt_token>
+```
+
+Success Response:
+
+```json
+{
+  "success": true,
+  "message": "Lead deleted successfully"
+}
+```
+
+---
+
+# Error Response Format
+
+Example:
+
+```json
+{
+  "success": false,
+  "message": "Unauthorized access"
+}
+```
+
+---
+
+# Authentication Notes
+
+Protected routes require:
+
+```text
+Authorization: Bearer <JWT_TOKEN>
+```
+
+Role-based access:
+
+- Admin → Full access
+- Sales User → Restricted permissions
 ## API Reference
 
 ### Auth
